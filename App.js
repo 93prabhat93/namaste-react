@@ -1,32 +1,20 @@
-// const heading = React.createElement(
-//     'h1',
-//     {
-//         id:'heading'
-//     },
-//     'Welcome from React');
-/* <div id="header">
-    <div id='child'>
-        <h1 id="header">
+import React from 'react'
+import  ReactDOM  from 'react-dom/client';
 
-        </h1>
-    <div/>
-</div> */
-const parent = React.createElement(
-    'div',
-    {id:'parent'},
-    [
-        React.createElement(
-            'div',
-            {id:'child1'},
-            React.createElement('h1',{id:'header'},'react header 1')
-        ),
-        // React.createElement(
-        //     'div',
-        //     {id:'child2'},
-        //     React.createElement('h1',{id:'header'},'react header 2')
-        // )
-    ])
+const title  = (<h1 className="head-class">Namaste React 🚀🔥</h1>)
 
 
+const HeadingComponent = () => (
+    <React.Fragment>
+    <div className='container'  id="heading">
+        <h1>heading component head </h1>
+        {/* <Title /> */}
+    </div>
+    <div className='container'>
+        <h1>heading component head </h1>
+        {/* <Title /> */}
+    </div>
+    </React.Fragment>
+)
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(parent)
+root.render(<HeadingComponent />)
