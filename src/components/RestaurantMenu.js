@@ -4,7 +4,8 @@ import {IMG_CDN_URL} from '../utils/constants'
 import { useParams
  } from "react-router-dom";
 const RestaurantMenu = () => {
-    const [resInfo,setresInfo]= useState(null) ;  
+    const [resInfo,setresInfo]= useState(null) ;
+    const [openMenuType,setOpenMenuType]= useState('') ;    
     const {resId} = useParams();
     console.log(resId,'param')
 
@@ -12,7 +13,10 @@ const RestaurantMenu = () => {
         fetchMenuData()
     },[])
 
-   
+    const changeViewToggle = (val) => {
+        setOpenMenuType(val)
+    }
+    
     const fetchMenuData = async () => {
         const data = await fetch('https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=19.0726295&lng=72.8844721&restaurantId='+resId)
         const jsonData = await data.json();
@@ -40,10 +44,11 @@ const RestaurantMenu = () => {
             {
             itemCards?.map((menuTypes,i) => (
                 menuTypes?.card?.card?.itemCards?.length ? <div className="menu-type" key={i}>
-                    <h3>{menuTypes?.card?.card?.title}</h3>
+                    <h3>{menuTypes?.card?.card?.title} <span className="view float-right font-size-12px" onClick={() => changeViewToggle(menuTypes?.card?.card?.title)} >view</span></h3>
                     <div className="" >
-                    {
+                    { 
                         menuTypes?.card?.card?.itemCards?.map(items => (
+                            openMenuType === menuTypes?.card?.card?.title ?
                             <div  key={items.card.info.id} className="menu-item-box">
                                 <div className="width-70-percent">
                                     <p>{items.card.info.name} - Rs {items.card.info.price/100}</p>
@@ -52,7 +57,7 @@ const RestaurantMenu = () => {
                                 <div className="width-30-percent">
                                    { items.card.info.imageId ? <img className="product-img" src={IMG_CDN_URL +items.card.info.imageId}></img>:<p className="not-available-text">N/A</p>}
                                 </div>
-                            </div>
+                            </div>:''
                             
                         )) 
                     }
