@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 
 const Body = () => {
     const [resListData,setResListData] = useState([]);
+    const [showTopRatedRestaurantsText,setShowTopRatedRestaurantsText] = useState('Top restaurants');
     const [filteredResList,setFilteredResList] = useState([]);
     const [searchtext,setSearchText] = useState('')
 
@@ -18,38 +19,57 @@ const Body = () => {
         const data = await fetch('https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.0726295&lng=72.8844721&page_type=DESKTOP_WEB_LISTING')
         const json = await data.json()
         console.log(json)
-        setResListData(json?.data?.cards[2]?.data?.data?.cards)
-        setFilteredResList(json?.data?.cards[2]?.data?.data?.cards)
+        console.log(resList)
+        if(json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants){
+            setResListData(json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+            setFilteredResList(json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+        } else {
+            setResListData(resList?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+            setFilteredResList(resList?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants)
+        }
+        
     }
 
    
-return resListData.length === 0 ? <Shimmer/>: (
+return (!resListData || resListData.length === 0 )? <Shimmer/>: (
         <div className='body'>
             <div className='action-box'>
                 <div className='search-bar-container'>
-                    <input className='search-field' value={searchtext} onChange={(e)=>{
+                    <input className='search-field' onKeyUp={(e)=>{
+                        if(e.target.value.length > 2) {
+                            const filteredRes =  resListData.filter((res)=> res.info.name.toLowerCase().includes(e.target.value.toLowerCase()) )
+                            setFilteredResList(filteredRes)
+                        } else if(e.target.value.length < 1) {
+                            setFilteredResList(resListData)
+                        }
+                    }} 
+                    value={searchtext} onChange={(e)=>{
                         setSearchText(e.target.value)
                     }} placeholder="search restuarants"></input>
                     <button className='search-btn' onClick={()=>{
-                        const filteredRes = resListData.filter((res)=> res.data.name.toLowerCase().includes(searchtext.toLowerCase()) )
+                        const filteredRes = resListData.filter((res)=> res.info.name.toLowerCase().includes(searchtext.toLowerCase()) )
                         setFilteredResList(filteredRes)
                     }}>Search</button>
                 </div>
                 <div className='top-rated-filter'>
                     <button className='top-rated-button' onClick={()=>{
-                        
-                        const filteredList = resListData.filter((res)=> +res.data.avgRating > 4);
-                        setFilteredResList(filteredList)
-                        console.log(resListData)
+                        if(showTopRatedRestaurantsText == 'Top restaurants'){
+                            const filteredList = resListData.filter((res)=> +res.info.avgRating > 4);
+                            setFilteredResList(filteredList)
+                        } else {
+                            setFilteredResList(resListData)
+                        }
+                        showTopRatedRestaurantsText === 'Top restaurants' ? setShowTopRatedRestaurantsText('Show all'):setShowTopRatedRestaurantsText('Top restaurants');
+
                     }}>
-                        Show Top Rated Restuarants
+                        {showTopRatedRestaurantsText }
                     </button>
                 </div>
             </div>
             <div className='res-container'>
             {
                 filteredResList.map(restaurant => (
-                <Link  key={restaurant.data.id} to={'restaurant/'+restaurant.data.id}> <Restaurant resData={restaurant}/></Link>
+                <Link  key={restaurant.info.id} to={'restaurant/'+restaurant.info.id}> <Restaurant resData={restaurant}/></Link>
                 ))
             }
             </div>

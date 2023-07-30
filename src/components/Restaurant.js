@@ -5,7 +5,7 @@ import {IMG_CDN_URL} from '../utils/constants'
 const CONSTANTS = IMG_CDN_URL
 const Restaurant = (props) => {
     const {resData} = props
-    const {cloudinaryImageId,name,cuisines,slaString,avgRating,costForTwoString} = resData.data
+    const {cloudinaryImageId,name,cuisines,slaString,avgRating,costForTwoString} = resData.info
     return ( 
     <div className='res-card'>            
         <img className="restuarant-image" src={IMG_CDN_URL +cloudinaryImageId}></img>

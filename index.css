@@ -38,10 +38,11 @@ body {
 
 .res-card {
     margin: 10px;
-    width: 200px;
+    width: 198px;
+    border: 2px solid #fff;
     height: 350px;
-    border-radius: 5px;
-    background-color: #f0f0f0;
+    border-radius: 10px;
+    background-color: #359933;
 }
 
 .res-card:hover {
@@ -52,6 +53,7 @@ body {
 
 .food-info {
     padding: 10px;
+    color: #fff;
 }
 
 h1,h2,h3,h4,h5,h6 {
@@ -60,6 +62,11 @@ h1,h2,h3,h4,h5,h6 {
 
 .restuarant-image {
     width: 100%;
+    border-radius: 10px;
+}
+
+.res-container a {
+    text-decoration: none;
 }
 
 .top-rated-button {
