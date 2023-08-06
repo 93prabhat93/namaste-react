@@ -7,29 +7,27 @@ class UserClass extends React.Component {
         this.state = {
             count:0
         }
-        console.log('Child constructor'+ props.age )
     }
 
     componentDidMount(){
-        const {age} = this.props
-        console.log('Child componentDidMount' + age)
+       
     }
     render(){
         
-        const {username,age} = this.props
-        console.log('Child render' + age)
+        const {username,name,email,address} = this.props.userInfo
+        
         return (
-            <div>
-                <p>Name: {username}</p>
-                <p>Age: {age}</p>
-                <p>Count = {this.state.count} <button onClick={()=> {
-                    this.setState({
-                        count:this.state.count+1
-                    })
-                }
-                }>Add +</button></p>
-                <InnerUserClass/>
+            <div >
+                
+                <div className="team-card">
+                <p>Name: {name}</p>
+                <p>Username: {username}</p>
+                <p>Contact: {email}</p>
+                <p>Address: {address.suite+', '+address.street+", " + address.city+', '+address.zipcode}</p>
+                
+                </div>
             </div>
+            
             
         )
     }

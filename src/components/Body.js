@@ -1,4 +1,4 @@
-import Restaurant from './Restaurant';
+import Restaurant, { withPromotedLabel } from './Restaurant';
 import Shimmer from './Shimmer';
 import resList from '../utils/mockData';
 import { useEffect, useState } from 'react';
@@ -10,6 +10,7 @@ const Body = () => {
     const [showTopRatedRestaurantsText,setShowTopRatedRestaurantsText] = useState('Top restaurants');
     const [filteredResList,setFilteredResList] = useState([]);
     const [searchtext,setSearchText] = useState('')
+    const RestaurantWithPromotedLabel = withPromotedLabel(Restaurant)
 
     useEffect(()=>{
         fetchData();
@@ -37,7 +38,7 @@ return (!resListData || resListData.length === 0 )? <Shimmer/>: (
                 <div className='search-bar-container'>
                     <input className='search-field' onKeyUp={(e)=>{
                         if(e.target.value.length > 2) {
-                            const filteredRes =  resListData.filter((res)=> res.info.name.toLowerCase().includes(e.target.value.toLowerCase()) )
+                            const filteredRes =  resListData.filter((res)=> res.info.name.toLowerCase().includes(e.target.value.toLowerCase()) || res.info.cuisines.join(',').toLowerCase().includes(e.target.value.toLowerCase()))
                             setFilteredResList(filteredRes)
                         } else if(e.target.value.length < 1) {
                             setFilteredResList(resListData)
@@ -47,7 +48,7 @@ return (!resListData || resListData.length === 0 )? <Shimmer/>: (
                         setSearchText(e.target.value)
                     }} placeholder="search restuarants"></input>
                     <button className='search-btn' onClick={()=>{
-                        const filteredRes = resListData.filter((res)=> res.info.name.toLowerCase().includes(searchtext.toLowerCase()) )
+                        const filteredRes = resListData.filter((res)=> res.info.name.toLowerCase().includes(searchtext.toLowerCase()))
                         setFilteredResList(filteredRes)
                     }}>Search</button>
                 </div>
@@ -69,7 +70,8 @@ return (!resListData || resListData.length === 0 )? <Shimmer/>: (
             <div className='res-container'>
             {
                 filteredResList.map(restaurant => (
-                <Link  key={restaurant.info.id} to={'restaurant/'+restaurant.info.id}> <Restaurant resData={restaurant}/></Link>
+                <Link  key={restaurant.info.id} to={'restaurant/'+restaurant.info.id}> 
+                {restaurant.info.name.toLowerCase().includes('burger') || restaurant.info.name.toLowerCase().includes('pizza')?<RestaurantWithPromotedLabel resData={restaurant}/>: <Restaurant resData={restaurant}/>}</Link>
                 ))
             }
             </div>

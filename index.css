@@ -1,6 +1,8 @@
+
 body {
     background: #f96767;
 }
+
 
 .header {
     display: flex;
@@ -8,6 +10,11 @@ body {
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     padding: 10px;
+}
+
+.nav-items li,.nav-items li a {
+    color: #000;
+    text-decoration: none;
 }
 
 .logo {
@@ -38,11 +45,12 @@ body {
 
 .res-card {
     margin: 10px;
-    width: 198px;
+    padding: 10px;
+    width: 178px;
     border: 2px solid #fff;
     height: 350px;
     border-radius: 10px;
-    background-color: #359933;
+    background-color: #3e8f3c;
 }
 
 .res-card:hover {
@@ -121,6 +129,28 @@ h1,h2,h3,h4,h5,h6 {
     background: #f8fff659;
 }
 
+.restaurant-hero-image{
+    border-radius: 15px;
+}
+
+.menu-item-name {
+    padding-right: 10px;
+}
+
+.add-button {
+    padding: 5px;
+    width: 100%;
+    background: #bb2e2e;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+
+.bold {
+    font-weight: 600;
+}
 .menu-type {
     box-shadow: 0 5px 15px #00000059;
     padding: 20px;
@@ -174,4 +204,43 @@ h1,h2,h3,h4,h5,h6 {
 
 .view {
     cursor: pointer;
+}
+
+.team-card {
+    width: 280px;
+    border-top-left-radius: 55px;
+    border-bottom-right-radius: 55px;
+    margin: 15px;
+    border: 1px solid;
+    padding: 10px;
+    background: #f18282;
+    box-shadow: 0 5px 15px #00000059;
+    text-align: center;
+}
+
+.page-title {
+    text-align: center;
+}
+
+.text-center {
+    text-align: center;
+}
+
+h1 {
+    font-size: 50px;
+}
+
+.team-box {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.promoted-label {
+    position: absolute;
+    background: #000;
+    color: #fff;
+    margin-left: 12px;
+    padding: 2px 5px;
+    margin-top: 3px;
+    border-radius: 5px;
 }
