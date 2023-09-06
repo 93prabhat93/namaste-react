@@ -7,6 +7,7 @@ import RestaurantCategory from "./RestaurantCategory";
 const RestaurantMenu = () => {
     const {resId} = useParams();
     const resInfo = useRestaurantMenu(resId)
+    const [openMenuType,setOpenMenuType]= useState('');
    
     if(resInfo===null ) {
         return (<Shimmer/>)
@@ -14,7 +15,7 @@ const RestaurantMenu = () => {
 
     const {name,avgRating,totalRatingsString,city,costForTwoMessage,locality,cuisines,cloudinaryImageId} = resInfo?.cards[0]?.card?.card?.info;
     const itemCards = resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards
-
+    
     return ( 
         <div className="res-menu-container">
             <h1>{name} </h1>
@@ -25,8 +26,15 @@ const RestaurantMenu = () => {
             <div className="menu-list">
             {
             itemCards?.map((menuTypes,i) => (
-                menuTypes?.card?.card?.itemCards?.length ? <RestaurantCategory data={menuTypes} key={menuTypes?.card?.card?.title}/> :''
-               
+                menuTypes?.card?.card?.itemCards?.length ?
+                //controlled component 
+                <RestaurantCategory 
+                key={menuTypes?.card?.card?.title} 
+                data={menuTypes} 
+                openMenuType={openMenuType ==='' ? itemCards[1]?.card?.card?.title:openMenuType} 
+                setOpenMenuType={() =>
+                    openMenuType === menuTypes?.card?.card?.title? setOpenMenuType(''):setOpenMenuType(menuTypes?.card?.card?.title)} /> :''
+                
                 ))
             }
               

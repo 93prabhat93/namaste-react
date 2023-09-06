@@ -235,6 +235,10 @@ h1 {
     flex-wrap: wrap;
 }
 
+button{
+    cursor: pointer;
+}
+
 .promoted-label {
     position: absolute;
     background: #000;
@@ -243,4 +247,53 @@ h1 {
     padding: 2px 5px;
     margin-top: 3px;
     border-radius: 5px;
+}
+
+.online-offline {
+    font-size: 12px;
+}
+
+.upper-power {
+    font-size: 15px;
+    position: relative;
+    top: -7px;
+}
+
+.cart-page {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.clear-cart {
+    background: #000;
+    color: white;
+    height: 40px;
+    width: 100px;
+    border-radius: 25px;
+    margin-left: auto;
+    padding: 10px;
+}
+
+.clear-cart:hover {
+    background: #fff;
+    color: #000;
+    border: 2px solid #000;
+}
+
+.cart-add-remove {
+    height: 30px;
+    background-color: #000;
+    color: #fff;
+    width: 50%;
+    margin: 5px;
+    border-radius: 15px;
+}
+
+.cart-add-remove:hover{
+    border: 2px solid #000;
+    background-color: #fff;
+    color: #000;
+}
+.margin-zero {
+    margin: 0 !important;
 }
